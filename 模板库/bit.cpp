@@ -1,3 +1,5 @@
+#include <cstring>
+
 template<class T>
 struct BIT {
 	static const int VAL_MAX = 1 << 20;
