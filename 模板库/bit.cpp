@@ -1,9 +1,8 @@
 #include <cstring>
 
-template<class T>
+template<int N, class T>
 struct BIT {
-	static const int VAL_MAX = 1 << 20;
-	T a[VAL_MAX + 1];
+	T a[N + 1];
 	void init() {
 		memset(a, 0, sizeof(a));
 	}
@@ -15,7 +14,7 @@ struct BIT {
 		return sum;
 	}
 	void update(int idx, T val) {
-		for (int i = idx; i <= VAL_MAX; i += (i & -i)) {
+		for (int i = idx; i <= N; i += (i & -i)) {
 			a[i] += val;
 		}
 	}
