@@ -14,7 +14,7 @@ typedef std::pair<PII, int> PIII;
 #define F first
 #define S second
 
-int n, m, weight;
+int n, m;
 char s[100];
 PIII a[N];
 std::vector<int> values;
@@ -38,7 +38,7 @@ struct DisjointSet {
 			return j;
 		}
 	}
-	bool setp(int i, int j) {
+	bool setp(int i, int j, int weight) {
 		int x = getp(i);
 		int y = getp(j);
 		if (x == y) {
@@ -66,8 +66,7 @@ int solve() {
 	for (int i = 0; i < n; ++i) {
 		int x = find(a[i].F.F - 1);
 		int y = find(a[i].F.S);
-		weight = a[i].S;
-		if (!ds.setp(x, y)) {
+		if (!ds.setp(x, y, a[i].S)) {
 			return i;
 		}
 	}

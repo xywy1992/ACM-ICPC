@@ -16,7 +16,7 @@ const int N = (int) (1e5);
 int n, a[N];
 std::vector<PII> at;
 lint ans;
-int minv, al, ar;
+int al, ar;
 
 template<int N>
 struct DisjointSet {
@@ -35,7 +35,7 @@ struct DisjointSet {
 	int getp(int i) {
 		return i == p[i] ? i : (p[i] = getp(p[i]));
 	}
-	void setp(int i, int j) {
+	void setp(int i, int j, int v) {
 		i = getp(i);
 		j = getp(j);
 		if (i == j) {
@@ -47,8 +47,8 @@ struct DisjointSet {
 		sum[j] += sum[i];
 
 		bool update = false;
-		update |= (sum[j] * minv > ans);
-		if (sum[j] * minv == ans) {
+		update |= (sum[j] * v > ans);
+		if (sum[j] * v == ans) {
 			update |= (r[j] - l[j] < ar - al);
 			if (r[j] - l[j] == ar - al) {
 				update |= (l[j] < al);
@@ -56,7 +56,7 @@ struct DisjointSet {
 		}
 
 		if (update) {
-			ans = sum[j] * minv;
+			ans = sum[j] * v;
 			al = l[j], ar = r[j];
 		}
 	}
@@ -81,16 +81,16 @@ int main() {
 		ans = al = ar = 0;
 		ds.init(n);
 		for (RIT i = at.rbegin(); i != at.rend(); ++i) {
-			minv = i->F;
-			int id = i->S;
-			if (id - 1 >= 0 && a[id - 1] >= minv) {
-				ds.setp(id - 1, id);
+			int v = i->F, id = i->S;
+			if (id - 1 >= 0 && a[id - 1] >= v) {
+				ds.setp(id - 1, id, v);
 			}
-			if (id + 1 < n && a[id + 1] >= minv) {
-				ds.setp(id + 1, id);
+			if (id + 1 < n && a[id + 1] >= v) {
+				ds.setp(id + 1, id, v);
 			}
 		}
 		printf("%lld\n%d %d\n", ans, al + 1, ar + 1);
 	}
 	return 0;
 }
+
