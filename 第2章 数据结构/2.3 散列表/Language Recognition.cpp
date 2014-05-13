@@ -66,6 +66,9 @@ struct Elem {
 			x(_x) {
 	}
 	bool operator<(const Elem & rhs) const {
+		if (trie.hashCode(x) != trie.hashCode(rhs.x)) {
+			return trie.hashCode(x) < trie.hashCode(rhs.x);
+		}
 		if (trie.final[x] != trie.final[rhs.x]) {
 			return trie.final[x] < trie.final[rhs.x];
 		}
@@ -75,9 +78,6 @@ struct Elem {
 			if (a != b) {
 				return a < b;
 			}
-		}
-		if (trie.hashCode(x) != trie.hashCode(rhs.x)) {
-			return trie.hashCode(x) < trie.hashCode(rhs.x);
 		}
 		return false;
 	}
