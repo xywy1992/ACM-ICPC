@@ -1,3 +1,5 @@
+
+//edge length = 1
 #include <algorithm>
 #include <vector>
 
@@ -52,13 +54,17 @@ struct LCA {
 			return p[u][0];
 		}
 	}
+	int howfar(int u, int v) {
+		int w = lca(u, v);
+		return d[u] + d[v] - 2 * d[w];
+	}
 	void build() {
 		d[0] = 0;
 		dfs(0, 0);
 	}
 };
 
-
+//edge length != 1
 #include <algorithm>
 #include <utility>
 #include <vector>
