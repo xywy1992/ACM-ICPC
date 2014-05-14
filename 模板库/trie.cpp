@@ -6,14 +6,14 @@ struct Trie {
 	bool final[N];
 	int next[N][M];
 	void init() {
-		at = 0;
+		at = -1;
 		add();
 	}
 	int add() {
+		at++;
 		final[at] = false;
 		memset(next[at], 0xff, sizeof(next[at]));
-		at++;
-		return at - 1;
+		return at;
 	}
 	void insert(int n, int * word) {
 		int u = 0;
@@ -27,3 +27,4 @@ struct Trie {
 		final[u] = true;
 	}
 };
+
