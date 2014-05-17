@@ -62,13 +62,12 @@ struct Dinic {
 			level[u] = -1;
 		}
 	}
-	void init(int _n) {
-		n = _n;
+	void init(int _n, int _s, int _t) {
+		n = _n, s = _s, t = _t;
 		std::fill(first, first + n, -1);
 		e = 0;
 	}
-	Flow dinic(int _s, int _t) {
-		s = _s, t = _t;
+	Flow solve() {
 		flow = 0;
 		while (bfs(s, t)) {
 			for (int i = 0; i < n; ++i) {
