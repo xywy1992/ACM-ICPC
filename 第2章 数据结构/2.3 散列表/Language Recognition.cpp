@@ -3,10 +3,10 @@
 #include <set>
 #include <utility>
 
+const int MAGIC = (int) (1e9 + 7);
+
 #define F first
 #define S second
-
-const int MAGIC = (int) (1e9 + 7);
 
 template<int N, int M>
 struct Trie {
