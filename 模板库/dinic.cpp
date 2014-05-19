@@ -3,8 +3,8 @@
 
 template<int N, int M, class Flow>
 struct Dinic {
-	int n, e, first[N], next[M], to[M], s, t, pre[N], level[N], q[N], sign;
-	Flow cap[M], cur[N], flow;
+	int n, e, first[N], cur[N], next[M], to[M], s, t, pre[N], level[N], q[N], sign;
+	Flow cap[M], flow;
 	void add(int u, int v, Flow w) {
 		to[e] = v;
 		cap[e] = w;
