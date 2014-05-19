@@ -11,7 +11,7 @@ struct FordFulkerson {
 		std::fill(first, first + n, -1);
 		e = 0;
 	}
-	void add(int u, int v, int w) {
+	void add(int u, int v, Flow w) {
 		next[e] = first[u], to[e] = v, cap[e] = w, first[u] = e++;
 		next[e] = first[v], to[e] = u, cap[e] = 0, first[v] = e++;
 	}
