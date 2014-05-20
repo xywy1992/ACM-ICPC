@@ -112,37 +112,33 @@ struct MinCostMaxFlow {
 	}
 };
 
-const int N = 64;
-const int M = (int) (1e4);
-
+const int N = 40;
+const int M = 2000;
 #define L(X) ((X) * 2)
 #define R(X) ((X) * 2 + 1)
 
-int n, m, a[M], b[M], c[M];
-MinCostMaxFlow<N * 2, int, int> mcmf;
+int T, n, m, k, a[M], b[M], c[M];
+MinCostMaxFlow<N * 2 + 2, int, int> mcmf;
 
 int main() {
-	int t = 1;
-	while (scanf("%d %d", &n, &m) == 2) {
-		if (!n && !m) {
-			break;
-		}
+	scanf("%d", &T);
+	while (T--) {
+		scanf("%d %d %d", &n, &m, &k);
 		for (int i = 0; i < m; ++i) {
 			scanf("%d %d %d", &a[i], &b[i], &c[i]);
 		}
-		mcmf.init(n * 2, L(0), R(n - 1));
-		mcmf.add(L(0), R(0), 2, 0);
-		mcmf.add(L(n - 1), R(n - 1), 2, 0);
-		for (int i = 1; i < n - 1; ++i) {
-			mcmf.add(L(i), R(i), 1, 0);
+		int s = n * 2, t = n * 2 + 1;
+		mcmf.init(n * 2 + 2, s, t);
+		for (int i = 0; i < n; ++i) {
+			mcmf.add(s, L(i), k, 0);
+			mcmf.add(R(i), t, k, 0);
 		}
 		for (int i = 0; i < m; ++i) {
-			mcmf.add(R(a[i]), L(b[i]), 1, c[i]);
+			mcmf.add(L(a[i]), R(b[i]), 1, c[i]);
 		}
 		std::pair<int, int> ans = mcmf.gao();
-		printf("Instance #%d: ", t++);
-		if (ans.first < 2) {
-			puts("Not possible");
+		if (ans.first < k * n) {
+			puts("-1");
 		} else {
 			printf("%d\n", ans.second);
 		}
